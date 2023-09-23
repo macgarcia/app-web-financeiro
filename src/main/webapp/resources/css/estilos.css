@@ -1,0 +1,100 @@
+@charset "utf-8";
+
+body {
+	font-family: Ariual, Arial, Helvetica, sans-serif;
+	margin: 0px;
+	font-weight: normal;
+	background-color: ghostwhite;
+}
+
+h1 {
+	background-color: brown;
+	font-size: 50px;
+	border: 1px 1px 1px 1px;
+	margin: 0px;
+	font-style: italic;
+	padding: 10px;
+	color: white;
+}
+
+#menu {
+  display: flex;
+  justify-content: center; /* Centraliza horizontalmente os itens */
+  align-items: center; /* Centraliza verticalmente os itens */
+}
+
+#menu form {
+  margin-right: 10px; /* Espaçamento horizontal entre os formulários (ajuste conforme necessário) */
+}
+
+#menu form:last-child {
+  margin-right: 0; /* Remover a margem direita do último formulário para evitar excesso de espaçamento */
+}
+
+/* Estilo do select */
+.form-container {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+}
+
+.label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.select-menu {
+    width: 200px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: #fff;
+}
+
+.select-menu:hover {
+    border-color: #666;
+}
+/***/
+
+
+/* Estiliza o botão */
+.h-commandButton {
+    display: inline-block;
+    padding: 5px 10px; /* Ajuste o padding conforme necessário */
+    color: #fff; /* Cor do texto do botão */
+    border: none;
+    border-radius: 5px; /* Borda arredondada */
+    cursor: pointer;
+    font-size: 12px; /* Tamanho da fonte do botão */
+    font-weight: bold;
+}
+
+.centralized-table {
+	font-size: 14px;
+    margin: 0 auto; /* Centraliza a tabela horizontalmente */
+    text-align: center; /* Centraliza o conteúdo dentro da tabela horizontalmente */
+    width: 80%; /* Define a largura da tabela (altere o valor conforme necessário) */
+    border: 2px solid crimson; /* Adiciona uma borda sólida preta de 2px à tabela */
+}
+
+.centralized-table thead tr:first-child {
+    background-color: crimson; /* Cor de fundo para a primeira linha do cabeçalho (altere para a cor desejada) */
+    color: #fff; /* Cor do texto na primeira linha do cabeçalho (altere conforme necessário) */
+}
+
+/* Formulario de cadastro */
+
+#cadastro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+#cadastro > * {
+    margin: 0 10px; /* Adiciona espaçamento horizontal entre os elementos */
+}

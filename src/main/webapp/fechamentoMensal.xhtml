@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+	<h:head>
+		<h:outputStylesheet library="css" name="estilos.css"/>
+		<meta charset="UTF-8" />
+		<title>Fechamento Mensal</title>
+	</h:head>
+	<h:body>
+	
+		<h1>Fechamento mensal</h1>
+	
+		<br/>
+		<br/>
+		
+		<div id="menu">
+			<h:form>
+				<h:commandButton styleClass="h-commandButton" 
+					value="Setor meu financeiro" 
+					action="#{fechamentoMensalBean.telaInicial}"
+					style="background-color: green;"/>
+			</h:form>
+			
+			<h:form class="form-container">
+				<h:outputLabel value="Mês selecionado: " for="selectMes" />
+				<h:selectOneMenu id="selectMes" value="#{fechamentoMensalBean.mesSelecionado}">
+					<f:selectItems value="#{fechamentoMensalBean.meses}" var="mes" itemLabel="#{mes}" itemValue="#{mes}"/>
+				</h:selectOneMenu>
+			</h:form>
+			
+			<h:form>
+				<h:commandButton styleClass="h-commandButton" 
+					value="Executar fechamento mensal" 
+					action="#{fechamentoMensalBean.executarFechamentoMensal}"
+					render="tabelaCalculos"
+					style="background-color: blue; margin-right: 10px;"/>
+				
+				<h:outputLabel value="Valor renda mensal: " for="valorRenda" />
+				<h:inputText id="valorRenda" value="#{fechamentoMensalBean.valorRendaMensal}" required="true" />
+				
+			</h:form>
+		</div>
+		
+		<br/>
+		<br/>
+		
+		<div class="table">
+			<h:dataTable id="tabelaCalculos" styleClass="centralized-table" value="#{fechamentoMensalBean.calculos}" var="calculo">
+				<h:column>
+					<f:facet name="header">
+						<h:form>
+							<h:outputText value=""/>
+						</h:form>
+					</f:facet>
+					<h:form>
+						<h:commandButton styleClass="h-commandButton" 
+							value="Desfazer fechamento" 
+							action="#{fechamentoMensalBean.desfazerFechamento(calculo.id)}"
+							onclick="return confirm('Tem certeza de que deseja DESFAZER este item?');"
+							render="tabelaCalculos"
+							style="background-color: silver; color: black"/>
+					</h:form>
+				</h:column>
+				<h:column>
+					<f:facet name="header" >
+						<h:outputText value="Mês"/>
+					</f:facet>
+					<h:outputText value="#{calculo.mes}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header" >
+						<h:outputText value="Valor saldo mensal"/>
+					</f:facet>
+					<h:outputText value="#{calculo.valorSaldoMensal}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header" >
+						<h:outputText value="Valor resultante"/>
+					</f:facet>
+					<h:outputText value="#{calculo.valorResultante}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header" >
+						<h:outputText value="Valor total das dividas"/>
+					</f:facet>
+					<h:outputText value="#{calculo.valorTotalDividas}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header" >
+						<h:outputText value="Situacao"/>
+					</f:facet>
+					<h:outputText value="#{calculo.situacao}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header" >
+						<h:outputText value="Ano"/>
+					</f:facet>
+					<h:outputText value="#{calculo.ano}"/>
+				</h:column>
+			</h:dataTable>
+		</div>
+	</h:body>
+</html>
