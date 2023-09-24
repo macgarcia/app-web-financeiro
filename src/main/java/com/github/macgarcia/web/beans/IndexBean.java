@@ -2,7 +2,9 @@ package com.github.macgarcia.web.beans;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 import javax.annotation.PostConstruct;
@@ -114,9 +116,23 @@ public class IndexBean implements Serializable {
 		return "index?faces-redirect=true";
 	}
 	
-	public void salvarDivida() {
+	public String salvarDivida() {
+		dividaParaManuseio.setDataDivida(toLocalDate(dataDividaString));
 		System.out.println(dividaParaManuseio);
-		System.out.println(dataDividaString);
+		dividaRepository.salvarEntidade(dividaParaManuseio);
+		setDividas();
+		dividaParaManuseio = null;
+		dataDividaString = null;
+		return telaInicial();
 	}
 	/**/
+	
+	private LocalDate toLocalDate(final String data) {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
+		try {
+			return LocalDate.parse(data, dtf);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
 }
