@@ -119,7 +119,6 @@ public class IndexBean implements Serializable {
 	
 	public String salvarDivida() {
 		dividaParaManuseio.setDataDivida(toLocalDate(dataDividaString));
-		System.out.println(dividaParaManuseio);
 		dividaRepository.salvarEntidade(dividaParaManuseio);
 		setDividas();
 		dividaParaManuseio = null;
@@ -129,7 +128,7 @@ public class IndexBean implements Serializable {
 	/**/
 	
 	private LocalDate toLocalDate(final String data) {
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.US);
 		try {
 			return LocalDate.parse(data, dtf);
 		} catch (Exception e) {

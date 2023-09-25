@@ -8,3 +8,9 @@ RUN mv /usr/local/tomcat/webapps/pessoal-financeiro-jsf-0.0.1-SNAPSHOT.war /usr/
 
 # Exponha a porta 8080, que é a porta padrão do Tomcat
 EXPOSE 8080
+
+# Criando a imagem do docker
+# docker build -t app-web-contas .
+
+# Subindo o container para uso
+# docker run --name app-contas -d -p 9090:8080 app-web-contas 
