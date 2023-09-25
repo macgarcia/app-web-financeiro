@@ -14,27 +14,25 @@
 		<br/>
 		<br/>
 		
-		<div id="menu">
+		<div id="menu" class="form-container">
 			<h:form>
 				<h:commandButton styleClass="h-commandButton" 
 					value="Setor meu financeiro" 
 					action="#{fechamentoMensalBean.telaInicial}"
 					style="background-color: green;"/>
 			</h:form>
-			
-			<h:form class="form-container">
-				<h:outputLabel value="Mês selecionado: " for="selectMes" />
-				<h:selectOneMenu id="selectMes" value="#{fechamentoMensalBean.mesSelecionado}">
+						
+			<h:form>
+				<h:outputLabel value="Mês a ser fechado: " for="mesFechamento" />
+				<h:selectOneMenu id="mesFechamento" value="#{fechamentoMensalBean.mesFechmaento}">
 					<f:selectItems value="#{fechamentoMensalBean.meses}" var="mes" itemLabel="#{mes}" itemValue="#{mes}"/>
 				</h:selectOneMenu>
-			</h:form>
-			
-			<h:form>
+
 				<h:commandButton styleClass="h-commandButton" 
 					value="Executar fechamento mensal" 
 					action="#{fechamentoMensalBean.executarFechamentoMensal}"
 					render="tabelaCalculos"
-					style="background-color: blue; margin-right: 10px;"/>
+					style="background-color: blue; margin-right: 10px; margin-left: 10px;"/>
 				
 				<h:outputLabel value="Valor renda mensal: " for="valorRenda" />
 				<h:inputText id="valorRenda" value="#{fechamentoMensalBean.valorRendaMensal}" required="true" />

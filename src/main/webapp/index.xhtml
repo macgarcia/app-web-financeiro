@@ -14,9 +14,8 @@
 		<br/>
 		<br/>
 		
-		<div id="menu">
-				
-			<h:form class="form-container">
+		<div id="menu" class="form-container">
+			<h:form>
 				<h:outputLabel value="Mês selecionado: " for="selectMes" />
 				<h:selectOneMenu id="selectMes" value="#{indexBean.mesSelecionado}">
 					<f:selectItems value="#{indexBean.meses}" var="mes" itemLabel="#{mes}" itemValue="#{mes}"/>
