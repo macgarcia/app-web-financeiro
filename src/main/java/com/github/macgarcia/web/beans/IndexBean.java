@@ -22,6 +22,7 @@ import com.github.macgarcia.web.repository.DividaRepository;
 public class IndexBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	
 	@Inject
 	private DividaRepository dividaRepository;
@@ -68,7 +69,7 @@ public class IndexBean implements Serializable {
 	
 	public String editarDivida(Divida divida) {
 		this.dividaParaManuseio = divida;
-		this.dataDividaString = divida.getDataDivida().toString();
+		this.dataDividaString = formatter.format(dividaParaManuseio.getDataDivida());
 		return "telaCadastro?faces-redirect=true";
 	}
 	

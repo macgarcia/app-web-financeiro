@@ -2,6 +2,7 @@ package com.github.macgarcia.web.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -62,4 +63,7 @@ public class Divida implements Serializable, EntidadeBase {
     @JoinColumn(name = "calculo_mensal_id")
     private CalculoMensal calculoMensal;
 	
+    public String getDataFormatada() {
+    	return DateTimeFormatter.ofPattern("dd/MM/yyyy").format(this.dataDivida);
+    }
 }
