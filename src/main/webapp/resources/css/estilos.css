@@ -98,3 +98,11 @@ h1 {
 #cadastro > * {
     margin: 0 10px; /* Adiciona espaçamento horizontal entre os elementos */
 }
+
+/* Icone do botão nova divida*/
+
+.icone {
+    /* Estilos da imagem */
+    width: 30px; /* Largura da imagem */
+    height: 30px; /* Altura da imagem */
+}

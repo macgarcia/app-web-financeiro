@@ -29,7 +29,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @NamedQueries({
-	@NamedQuery(name= "Divida.todasAsDividasDoMesCorrente", query = "select d from Divida d where d.ano = :ano and d.mes = :mes")
+	@NamedQuery(name= "Divida.todasAsDividasDoMesCorrente",
+			query = "select d from Divida d left join fetch d.calculoMensal where d.ano = :ano and d.mes = :mes")
 })
 public class Divida implements Serializable, EntidadeBase {
 

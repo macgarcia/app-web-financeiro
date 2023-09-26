@@ -13,4 +13,4 @@ EXPOSE 8080
 # docker build -t app-web-contas .
 
 # Subindo o container para uso
-# docker run --name app-contas -d -p 9090:8080 app-web-contas 
+# docker run --name app-contas -d -p 9090:8080 app-web-contas

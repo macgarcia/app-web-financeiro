@@ -39,22 +39,28 @@
 				<h:column>
 					<f:facet name="header">
 						<h:form>
-							<h:commandButton value="Nova divida"
+							<h:commandButton id="novaDivida" 
+								value="Nova divida"
+								title="Nova divida"
+								image="https://ik.imagekit.io/macgarcia/app-web-contas/logo_novo_verde.png?updatedAt=1695695018493"
 								action="#{indexBean.telaDeCadastro}"
-								styleClass="h-commandButton" 
-								style="background-color: blue;"/>
+								styleClass="h-commandButton icone" />
 						</h:form>
 					</f:facet>
 					<h:form>
-					    <h:commandButton value="Editar"
+					    <h:commandButton id="editarDivida" 
+					    	value="Editar"
+					    	title="Editar divida"
+					    	image="https://ik.imagekit.io/macgarcia/app-web-contas/logo_editar_azul.png?updatedAt=1695695127464"
 					    	action="#{indexBean.editarDivida(divida)}"
-					    	styleClass="h-commandButton" 
-		                    style="background-color: dodgerblue;"/>
+					    	styleClass="h-commandButton icone" />
 								
-					    <h:commandButton styleClass="h-commandButton" 
-					    	value="Excluir Item" 
+					    <h:commandButton id="excluirDivida" 
+					    	value="Excluir Item"
+					    	title="Excluit divida"
+					    	image="https://ik.imagekit.io/macgarcia/app-web-contas/logo_excluir_vermelho.png?updatedAt=1695697451253" 
 					    	action="#{indexBean.excluirDivida(divida)}"
-					    	style="background-color: red;"
+					    	styleClass="h-commandButton icone"
 					    	onclick="return confirm('Tem certeza de que deseja excluir este item?');"
 					    	render="tabelaDividas"/>
 					</h:form>
@@ -95,6 +101,16 @@
 					</f:facet>
 					<h:outputText value="#{divida.ano}"/>
 				</h:column>
+				<h:column>
+				    <f:facet name="header">
+				        <h:outputText value="Fechamento mensal" />
+				    </f:facet>
+				    <h:graphicImage class="icone"
+				    	url="#{divida.calculoMensal != null ? 
+				    	'https://ik.imagekit.io/macgarcia/app-web-contas/logo_ok_verde.png?updatedAt=1695695894108' 
+				    	: 'https://ik.imagekit.io/macgarcia/app-web-contas/logo_nao_vermelho.png?updatedAt=1695697461792'}"/>
+				</h:column>
+
 			</h:dataTable>
 		</div>
 	</h:body>

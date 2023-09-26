@@ -47,7 +47,7 @@ public class IndexBean implements Serializable {
 		return CategoriaDivida.values();
 	}
 	
-	private void setDividas() {
+	public void setDividas() {
 		dividas = dividaRepository.todasAsDividasDoMes(mesSelecionado);
 	}
 	/*--*/

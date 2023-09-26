@@ -22,6 +22,9 @@ import com.github.macgarcia.web.repository.CalculoMensalRepository;
 public class FechamentoMensalBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
+	@Inject
+	private IndexBean indexBean;
 
 	@Inject
 	private CalculoMensalRepository calculoMensalRepository;
@@ -76,6 +79,7 @@ public class FechamentoMensalBean implements Serializable {
 		boolean processou = calculoMensalRepository.executeProcedure(ProcessosArmazenados.DESFAZER_FECHAMENTO_MES, parametros);
 		if (processou) {
 			setCalculos();
+			indexBean.setDividas();
 		}
 	}
 
@@ -87,6 +91,7 @@ public class FechamentoMensalBean implements Serializable {
 			boolean processou = calculoMensalRepository.executeProcedure(ProcessosArmazenados.PROCESSAR_FECHAMENTO_MES, parametros);
 			if (processou) {
 				setCalculos();
+				indexBean.setDividas();
 			}
 			this.valorRendaMensal = null;
 		}
