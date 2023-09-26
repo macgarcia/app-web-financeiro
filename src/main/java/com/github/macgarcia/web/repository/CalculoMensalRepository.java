@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -27,12 +26,17 @@ public class CalculoMensalRepository extends JPARepository<CalculoMensal> implem
 	}
 
 	public boolean existeFechamentoMensal(Mes mes) {
-		final TypedQuery<CalculoMensal> query = getEntityManager()
-				.createNamedQuery("CalculoMensal.existeFechamentoMensal", CalculoMensal.class);
-		query.setParameter("situacao", Situacao.FECHADO).setParameter("mes", mes).setParameter("ano",
-				LocalDate.now().getYear());
-		CalculoMensal singleResult = query.getSingleResult();
-		return Objects.isNull(singleResult);
+		try {
+			final TypedQuery<CalculoMensal> query = getEntityManager()
+					.createNamedQuery("CalculoMensal.existeFechamentoMensal", CalculoMensal.class);
+			query.setParameter("situacao", Situacao.FECHADO).setParameter("mes", mes).setParameter("ano",
+					LocalDate.now().getYear());
+			CalculoMensal singleResult = query.getSingleResult();
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+
 	}
 
 	@Transacional

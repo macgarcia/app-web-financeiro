@@ -1,6 +1,7 @@
 package com.github.macgarcia.web.model;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -64,5 +65,17 @@ public class CalculoMensal implements Serializable, EntidadeBase {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "calculoMensal", cascade = { CascadeType.PERSIST, CascadeType.MERGE,
 			CascadeType.REMOVE })
 	private List<Divida> dividas;
+	
+	public String getValorSaldoMensalFormatado() {
+		return "R$ " + new DecimalFormat("#,##0.00").format(valorSaldoMensal);
+	}
+	
+	public String getValorTotalDividaFormatado() {
+		return "R$ " + new DecimalFormat("#,##0.00").format(valorTotalDividas);
+	}
+	
+	public String getValorResultanteFormatado() {
+		return "R$ " + new DecimalFormat("#,##0.00").format(valorResultante);
+	}
 
 }

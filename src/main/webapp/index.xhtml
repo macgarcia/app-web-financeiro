@@ -25,7 +25,7 @@
 			
 			<h:form>
 				<h:commandButton styleClass="h-commandButton" 
-					value="Setor fechamento mensal >>" 
+					value="Fechamento mensal" 
 					action="#{indexBean.telaDeFechamentoMensal}"
 					style="background-color: green;"/>
 			</h:form>
@@ -36,14 +36,14 @@
 		
 		<div class="table">
 			<h:dataTable id="tabelaDividas" styleClass="centralized-table" value="#{indexBean.dividas}" var="divida">
-				<h:column>
+				<h:column rendered="#{!indexBean.existeCalculo}">
 					<f:facet name="header">
 						<h:form>
 							<h:commandButton id="novaDivida" 
-								value="Nova divida"
-								title="Nova divida"
-								image="https://ik.imagekit.io/macgarcia/app-web-contas/logo_novo_verde.png?updatedAt=1695695018493"
-								action="#{indexBean.telaDeCadastro}"
+								value="Nova divida" 
+								title="Nova divida" 
+								image="https://ik.imagekit.io/macgarcia/app-web-contas/logo_novo_verde.png?updatedAt=1695695018493" 
+								action="#{indexBean.telaDeCadastro}" 
 								styleClass="h-commandButton icone" />
 						</h:form>
 					</f:facet>
@@ -62,7 +62,7 @@
 					    	action="#{indexBean.excluirDivida(divida)}"
 					    	styleClass="h-commandButton icone"
 					    	onclick="return confirm('Tem certeza de que deseja excluir este item?');"
-					    	render="tabelaDividas"/>
+					    	render="tabelaDividas" />
 					</h:form>
 				</h:column>
 				<h:column>
@@ -73,9 +73,9 @@
 				</h:column>
 				<h:column>
 					<f:facet name="header" >
-						<h:outputText value="Valor"/>
+						<h:outputText value="Valor R$"/>
 					</f:facet>
-					<h:outputText value="#{divida.valor}"/>
+					<h:outputText value="#{divida.valorFormatado}"/>
 				</h:column>
 				<h:column>
 					<f:facet name="header" >

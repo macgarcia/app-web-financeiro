@@ -17,7 +17,7 @@
 		<div id="menu" class="form-container">
 			<h:form>
 				<h:commandButton styleClass="h-commandButton" 
-					value="Setor meu financeiro" 
+					value="Financeiro" 
 					action="#{fechamentoMensalBean.telaInicial}"
 					style="background-color: green;"/>
 			</h:form>
@@ -27,16 +27,17 @@
 				<h:selectOneMenu id="mesFechamento" value="#{fechamentoMensalBean.mesFechmaento}">
 					<f:selectItems value="#{fechamentoMensalBean.meses}" var="mes" itemLabel="#{mes}" itemValue="#{mes}"/>
 				</h:selectOneMenu>
-
-				<h:commandButton styleClass="h-commandButton" 
+				
+				<h:outputLabel value="Valor renda mensal R$: " for="valorRenda" style="margin-right: 10px; margin-left: 10px;" />
+				<h:inputText id="valorRenda" value="#{fechamentoMensalBean.valorRendaMensal}" required="true" />
+				
+				<h:commandButton class="icone" 
+					style="margin-right: 10px; margin-left: 10px;"
 					value="Executar fechamento mensal" 
 					action="#{fechamentoMensalBean.executarFechamentoMensal}"
 					render="tabelaCalculos"
-					style="background-color: blue; margin-right: 10px; margin-left: 10px;"/>
-				
-				<h:outputLabel value="Valor renda mensal: " for="valorRenda" />
-				<h:inputText id="valorRenda" value="#{fechamentoMensalBean.valorRendaMensal}" required="true" />
-				
+					title="Executar fechamento mensal"
+					image="https://ik.imagekit.io/macgarcia/app-web-contas/logo_executar_fechamento.png?updatedAt=1695745439025" />
 			</h:form>
 		</div>
 		
@@ -52,12 +53,13 @@
 						</h:form>
 					</f:facet>
 					<h:form>
-						<h:commandButton styleClass="h-commandButton" 
+						<h:commandButton styleClass="h-commandButton icone" 
 							value="Desfazer fechamento" 
 							action="#{fechamentoMensalBean.desfazerFechamento(calculo.id)}"
 							onclick="return confirm('Tem certeza de que deseja DESFAZER este item?');"
 							render="tabelaCalculos"
-							style="background-color: silver; color: black"/>
+							title="Desfazer fechamento mensal"
+							image="https://ik.imagekit.io/macgarcia/app-web-contas/logo_desfazer_verde.png?updatedAt=1695744828214"/>
 					</h:form>
 				</h:column>
 				<h:column>
@@ -68,21 +70,21 @@
 				</h:column>
 				<h:column>
 					<f:facet name="header" >
-						<h:outputText value="Valor saldo mensal"/>
+						<h:outputText value="Valor mensal recebido R$"/>
 					</f:facet>
-					<h:outputText value="#{calculo.valorSaldoMensal}"/>
+					<h:outputText value="#{calculo.valorSaldoMensalFormatado}"/>
 				</h:column>
 				<h:column>
 					<f:facet name="header" >
-						<h:outputText value="Valor resultante"/>
+						<h:outputText value="Valor saldo R$"/>
 					</f:facet>
-					<h:outputText value="#{calculo.valorResultante}"/>
+					<h:outputText value="#{calculo.valorResultanteFormatado}"/>
 				</h:column>
 				<h:column>
 					<f:facet name="header" >
-						<h:outputText value="Valor total das dividas"/>
+						<h:outputText value="Valor total das dividas R$"/>
 					</f:facet>
-					<h:outputText value="#{calculo.valorTotalDividas}"/>
+					<h:outputText value="#{calculo.valorTotalDividaFormatado}"/>
 				</h:column>
 				<h:column>
 					<f:facet name="header" >

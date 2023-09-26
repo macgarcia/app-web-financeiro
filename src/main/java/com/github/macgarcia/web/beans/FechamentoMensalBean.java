@@ -80,6 +80,7 @@ public class FechamentoMensalBean implements Serializable {
 		if (processou) {
 			setCalculos();
 			indexBean.setDividas();
+			indexBean.existeCalculoMensal();
 		}
 	}
 
@@ -92,6 +93,7 @@ public class FechamentoMensalBean implements Serializable {
 			if (processou) {
 				setCalculos();
 				indexBean.setDividas();
+				indexBean.existeCalculoMensal();
 			}
 			this.valorRendaMensal = null;
 		}

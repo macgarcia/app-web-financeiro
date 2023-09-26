@@ -15,6 +15,7 @@ import javax.inject.Named;
 import com.github.macgarcia.web.enums.CategoriaDivida;
 import com.github.macgarcia.web.enums.Mes;
 import com.github.macgarcia.web.model.Divida;
+import com.github.macgarcia.web.repository.CalculoMensalRepository;
 import com.github.macgarcia.web.repository.DividaRepository;
 
 @Named(value = "indexBean")
@@ -27,15 +28,20 @@ public class IndexBean implements Serializable {
 	@Inject
 	private DividaRepository dividaRepository;
 	
+	@Inject
+	private CalculoMensalRepository calculoMensalRepository;
+	
 	private List<Divida> dividas;
 	private Mes mesSelecionado = Mes.getMesComDigito(LocalDate.now().getMonthValue() -1);
 	private Divida dividaParaManuseio;
+	private boolean existeCalculo;
 	
 	private String dataDividaString;
 
 	@PostConstruct
 	public void init() {
 		setDividas();
+		existeCalculoMensal();
 	}
 	
 	/* Processamento inicial da tela*/
@@ -50,11 +56,16 @@ public class IndexBean implements Serializable {
 	public void setDividas() {
 		dividas = dividaRepository.todasAsDividasDoMes(mesSelecionado);
 	}
+	
+	public void existeCalculoMensal() {
+		existeCalculo = calculoMensalRepository.existeFechamentoMensal(mesSelecionado);
+	}
 	/*--*/
 	
 	/* Processar eventos da tela */
 	public void eventoDeSelecaoDoMes() {
 		setDividas();
+		existeCalculoMensal();
 	}
 	
 	public String telaDeFechamentoMensal() {
@@ -109,6 +120,10 @@ public class IndexBean implements Serializable {
 	
 	public void setDataDividaString(String dataDividaString) {
 		this.dataDividaString = dataDividaString;
+	}
+	
+	public boolean isExisteCalculo() {
+		return existeCalculo;
 	}
 	/**/
 

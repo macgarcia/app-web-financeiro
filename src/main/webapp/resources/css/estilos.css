@@ -19,7 +19,7 @@ h1 {
 
 #menu {
   display: flex;
-  justify-content: center; /* Centraliza horizontalmente os itens */
+  justify-content: space-between; /* Centraliza horizontalmente os itens */
   align-items: center; /* Centraliza verticalmente os itens */
 }
 
@@ -105,4 +105,16 @@ h1 {
     /* Estilos da imagem */
     width: 30px; /* Largura da imagem */
     height: 30px; /* Altura da imagem */
+}
+
+
+/*Menu de fechamento*/
+
+#menu .form-container {
+  text-align: center; /* Centraliza o conteúdo horizontalmente */
+}
+
+#menu .form-container form {
+  display: inline-block; /* Coloca os forms lado a lado */
+  margin-right: 10px; /* Adiciona margem à direita para espaçamento entre eles */
 }

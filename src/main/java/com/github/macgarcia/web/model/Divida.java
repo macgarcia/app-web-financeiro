@@ -1,6 +1,7 @@
 package com.github.macgarcia.web.model;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -66,5 +67,9 @@ public class Divida implements Serializable, EntidadeBase {
 	
     public String getDataFormatada() {
     	return DateTimeFormatter.ofPattern("dd/MM/yyyy").format(this.dataDivida);
+    }
+    
+    public String getValorFormatado() {
+    	return "R$ " + new DecimalFormat("#,##0.00").format(valor);
     }
 }
