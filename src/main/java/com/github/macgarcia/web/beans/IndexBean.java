@@ -1,6 +1,7 @@
 package com.github.macgarcia.web.beans;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -35,6 +36,7 @@ public class IndexBean implements Serializable {
 	private Mes mesSelecionado = Mes.getMesComDigito(LocalDate.now().getMonthValue() -1);
 	private Divida dividaParaManuseio;
 	private boolean existeCalculo;
+	private Double somatorioTotalDeDividas;
 	
 	private String dataDividaString;
 
@@ -55,6 +57,7 @@ public class IndexBean implements Serializable {
 	
 	public void setDividas() {
 		dividas = dividaRepository.todasAsDividasDoMes(mesSelecionado);
+		somatorioDeDividas();
 	}
 	
 	public void existeCalculoMensal() {
@@ -125,6 +128,10 @@ public class IndexBean implements Serializable {
 	public boolean isExisteCalculo() {
 		return existeCalculo;
 	}
+	
+	public String getSomatorioTotalDeDividas() {
+		return "R$ " + new DecimalFormat("#,##0.00").format(somatorioTotalDeDividas);
+	}
 	/**/
 
 	/* Comportamento tela de cadastro*/
@@ -148,6 +155,14 @@ public class IndexBean implements Serializable {
 			return LocalDate.parse(data, dtf);
 		} catch (Exception e) {
 			throw e;
+		}
+	}
+	
+	/* Somatorio das dividas */
+	private void somatorioDeDividas() {
+		somatorioTotalDeDividas = 0.0;
+		for(Divida d : dividas) {
+			somatorioTotalDeDividas += d.getValor();
 		}
 	}
 }

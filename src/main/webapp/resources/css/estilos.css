@@ -118,3 +118,14 @@ h1 {
   display: inline-block; /* Coloca os forms lado a lado */
   margin-right: 10px; /* Adiciona margem à direita para espaçamento entre eles */
 }
+
+/* Bloco informativo de total de dividas */
+
+#totalDividas {
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    padding: 5px;
+    border-radius: 5px;
+    width: 10.5%;
+}

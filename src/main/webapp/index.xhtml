@@ -19,9 +19,18 @@
 				<h:outputLabel value="Mês selecionado: " for="selectMes" />
 				<h:selectOneMenu id="selectMes" value="#{indexBean.mesSelecionado}">
 					<f:selectItems value="#{indexBean.meses}" var="mes" itemLabel="#{mes}" itemValue="#{mes}"/>
-					<f:ajax event="change" render="tabelaDividas" listener="#{indexBean.eventoDeSelecaoDoMes}" />
+					<f:ajax event="change" render="tabelaDividas valorTotalDivida" listener="#{indexBean.eventoDeSelecaoDoMes}" />
 				</h:selectOneMenu>
 			</h:form>
+			
+			<div id="totalDividas">
+				<h:form id="valorTotalDivida">
+					<h:panelGrid columns="2">
+						<h:outputText value="Valor total: " />
+						<h:outputText value="#{indexBean.somatorioTotalDeDividas}" />
+					</h:panelGrid>
+				</h:form>
+			</div>
 			
 			<h:form>
 				<h:commandButton styleClass="h-commandButton" 
@@ -110,8 +119,8 @@
 				    	'https://ik.imagekit.io/macgarcia/app-web-contas/logo_ok_verde.png?updatedAt=1695695894108' 
 				    	: 'https://ik.imagekit.io/macgarcia/app-web-contas/logo_nao_vermelho.png?updatedAt=1695697461792'}"/>
 				</h:column>
-
 			</h:dataTable>
+			<br/>
 		</div>
 	</h:body>
 </html>
