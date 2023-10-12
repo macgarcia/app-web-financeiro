@@ -19,6 +19,9 @@ import com.github.macgarcia.web.model.Divida;
 import com.github.macgarcia.web.repository.CalculoMensalRepository;
 import com.github.macgarcia.web.repository.DividaRepository;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Named(value = "indexBean")
 @SessionScoped
 public class IndexBean implements Serializable {
@@ -32,12 +35,21 @@ public class IndexBean implements Serializable {
 	@Inject
 	private CalculoMensalRepository calculoMensalRepository;
 	
+	@Getter
 	private List<Divida> dividas;
+	
+	@Getter @Setter
 	private Mes mesSelecionado = Mes.getMesComDigito(LocalDate.now().getMonthValue() -1);
+	
+	@Setter
 	private Divida dividaParaManuseio;
+	
+	@Getter
 	private boolean existeCalculo;
+	
 	private Double somatorioTotalDeDividas;
 	
+	@Getter @Setter
 	private String dataDividaString;
 
 	@PostConstruct
@@ -93,40 +105,11 @@ public class IndexBean implements Serializable {
 	}
 	/*--*/
 	
-	/* Getter para o JSF */	
-	public Mes getMesSelecionado() {
-		return mesSelecionado;
-	}
-	
-	public void setMesSelecionado(Mes mesSelecionado) {
-		this.mesSelecionado = mesSelecionado;
-	}
-	
-	public List<Divida> getDividas() {
-		return dividas;
-	}
-
 	public Divida getDividaParaManuseio() {
 		if (Objects.isNull(dividaParaManuseio)) {
 			dividaParaManuseio = new Divida();
 		}
 		return dividaParaManuseio;
-	}
-
-	public void setDividaParaManuseio(Divida dividaParaManuseio) {
-		this.dividaParaManuseio = dividaParaManuseio;
-	}
-		
-	public String getDataDividaString() {
-		return dataDividaString;
-	}
-	
-	public void setDataDividaString(String dataDividaString) {
-		this.dataDividaString = dataDividaString;
-	}
-	
-	public boolean isExisteCalculo() {
-		return existeCalculo;
 	}
 	
 	public String getSomatorioTotalDeDividas() {

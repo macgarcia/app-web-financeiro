@@ -17,6 +17,9 @@ import com.github.macgarcia.web.enums.ProcessosArmazenados;
 import com.github.macgarcia.web.model.CalculoMensal;
 import com.github.macgarcia.web.repository.CalculoMensalRepository;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Named(value = "fechamentoMensalBean")
 @SessionScoped
 public class FechamentoMensalBean implements Serializable {
@@ -29,8 +32,13 @@ public class FechamentoMensalBean implements Serializable {
 	@Inject
 	private CalculoMensalRepository calculoMensalRepository;
 
+	@Getter
 	private List<CalculoMensal> calculos;
+	
+	@Getter @Setter
 	private Mes mesFechmaento = Mes.getMesComDigito(LocalDate.now().getMonthValue() - 1);
+	
+	@Getter @Setter
 	private Double valorRendaMensal;
 
 	@PostConstruct
@@ -49,26 +57,6 @@ public class FechamentoMensalBean implements Serializable {
 	/* Gets para a tela */
 	public Mes[] getMeses() {
 		return Mes.values();
-	}
-
-	public Mes getMesFechmaento() {
-		return mesFechmaento;
-	}
-
-	public void setMesFechmaento(Mes mesFechmaento) {
-		this.mesFechmaento = mesFechmaento;
-	}
-
-	public List<CalculoMensal> getCalculos() {
-		return calculos;
-	}
-
-	public void setValorRendaMensal(Double valorRendaMensal) {
-		this.valorRendaMensal = valorRendaMensal;
-	}
-
-	public Double getValorRendaMensal() {
-		return valorRendaMensal;
 	}
 	/**/
 
