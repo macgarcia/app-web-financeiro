@@ -11,10 +11,12 @@
 		<class>com.github.macgarcia.web.model.CalculoMensal</class>
 
 		<properties>
-<!-- 			<property name="javax.persistence.jdbc.url"
-				value="jdbc:mysql://localhost:3306/anotacoes" /> -->
 			<property name="javax.persistence.jdbc.url"
-				value="jdbc:mysql://172.17.0.2:3306/anotacoes_prd" />
+				value="jdbc:mysql://localhost:3306/anotacoes" />
+				
+<!-- 			<property name="javax.persistence.jdbc.url"
+				value="jdbc:mysql://172.17.0.2:3306/anotacoes_prd" /> -->
+				
 			<property name="javax.persistence.jdbc.user" value="root" />
 			<property name="javax.persistence.jdbc.password"
 				value="marcos1985" />

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.TypedQuery;
 
 import com.github.macgarcia.web.enums.Mes;
+import com.github.macgarcia.web.interceptador.Transacional;
 import com.github.macgarcia.web.model.Divida;
 
 public class DividaRepository extends JPARepository<Divida> implements Serializable {
@@ -17,6 +18,12 @@ public class DividaRepository extends JPARepository<Divida> implements Serializa
 		TypedQuery<Divida> query = getEntityManager().createNamedQuery("Divida.todasAsDividasDoMesCorrente", Divida.class);
 		query.setParameter("ano", LocalDate.now().getYear())
 		.setParameter("mes", mes);
+		return query.getResultList();
+	}
+	
+	@Transacional
+	public List<Divida> getAll() {
+		TypedQuery<Divida> query = getEntityManager().createNamedQuery("Divida.todasAsDividas", Divida.class);
 		return query.getResultList();
 	}
 
