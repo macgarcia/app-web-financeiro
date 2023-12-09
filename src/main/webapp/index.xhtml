@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" 
 	  xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 	<h:head>
 		<h:outputStylesheet library="css" name="estilos.css"/>
 		<meta charset="UTF-8" />
@@ -52,7 +53,8 @@
 								value="Nova divida" 
 								title="Nova divida" 
 								image="https://ik.imagekit.io/macgarcia/app-web-contas/logo_novo_verde.png?updatedAt=1695695018493" 
-								action="#{indexBean.telaDeCadastro}" 
+								action="#{indexBean.telaDeCadastro}"
+								immediate="true"
 								styleClass="h-commandButton icone" />
 						</h:form>
 					</f:facet>
@@ -62,6 +64,7 @@
 					    	title="Editar divida"
 					    	image="https://ik.imagekit.io/macgarcia/app-web-contas/logo_editar_azul.png?updatedAt=1695695127464"
 					    	action="#{indexBean.editarDivida(divida)}"
+					    	immediate="true"
 					    	styleClass="h-commandButton icone" />
 								
 					    <h:commandButton id="excluirDivida" 
@@ -71,6 +74,7 @@
 					    	action="#{indexBean.excluirDivida(divida)}"
 					    	styleClass="h-commandButton icone"
 					    	onclick="return confirm('Tem certeza de que deseja excluir este item?');"
+					    	immediate="true"
 					    	render="tabelaDividas" />
 					</h:form>
 				</h:column>

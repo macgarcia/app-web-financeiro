@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" 
 	  xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 	<h:head>
 		<h:outputStylesheet library="css" name="estilos.css"/>
 		<meta charset="UTF-8" />
@@ -31,15 +32,23 @@
 				<h:outputLabel value="Valor renda mensal R$: " for="valorRenda" style="margin-right: 10px; margin-left: 10px;" />
 				<h:inputText id="valorRenda" value="#{fechamentoMensalBean.valorRendaMensal}" required="true" />
 				
-				<h:commandButton class="icone" 
-					style="margin-right: 10px; margin-left: 10px;"
+				<p:commandButton style="margin-right: 10px; margin-left: 10px;"
 					value="Executar fechamento mensal" 
-					action="#{fechamentoMensalBean.executarFechamentoMensal}"
+					actionListener="#{fechamentoMensalBean.executarFechamentoMensal}"
 					render="tabelaCalculos"
 					title="Executar fechamento mensal"
-					image="https://ik.imagekit.io/macgarcia/app-web-contas/logo_executar_fechamento.png?updatedAt=1695745439025" />
+					
+					onstart="PF('statusDialog').show();"
+					oncomplete="PF('statusDialog').hide();"
+					immediate="true"
+					/>
 			</h:form>
 		</div>
+		
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false" resizable="false" showHeader="false" closable="false">
+		    <p:spacer width="10" />
+		    <p:outputLabel value="Processando, por favor aguarde um instante..." />
+		</p:dialog>
 		
 		<br/>
 		<br/>

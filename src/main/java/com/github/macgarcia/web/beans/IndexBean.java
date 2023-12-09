@@ -28,28 +28,30 @@ public class IndexBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-	
+
 	@Inject
 	private DividaRepository dividaRepository;
-	
+
 	@Inject
 	private CalculoMensalRepository calculoMensalRepository;
-	
+
 	@Getter
 	private List<Divida> dividas;
-	
-	@Getter @Setter
-	private Mes mesSelecionado = Mes.getMesComDigito(LocalDate.now().getMonthValue() -1);
-	
+
+	@Getter
+	@Setter
+	private Mes mesSelecionado = Mes.getMesComDigito(LocalDate.now().getMonthValue() - 1);
+
 	@Setter
 	private Divida dividaParaManuseio;
-	
+
 	@Getter
 	private boolean existeCalculo;
-	
+
 	private Double somatorioTotalDeDividas;
-	
-	@Getter @Setter
+
+	@Getter
+	@Setter
 	private String dataDividaString;
 
 	@PostConstruct
@@ -57,71 +59,71 @@ public class IndexBean implements Serializable {
 		setDividas();
 		existeCalculoMensal();
 	}
-	
-	/* Processamento inicial da tela*/
+
+	/* Processamento inicial da tela */
 	public Mes[] getMeses() {
 		return Mes.values();
 	}
-	
+
 	public CategoriaDivida[] getCategorias() {
 		return CategoriaDivida.values();
 	}
-	
+
 	public void setDividas() {
 		dividas = dividaRepository.todasAsDividasDoMes(mesSelecionado);
 		somatorioDeDividas();
 	}
-	
+
 	public void existeCalculoMensal() {
 		existeCalculo = calculoMensalRepository.existeFechamentoMensal(mesSelecionado);
 	}
 	/*--*/
-	
+
 	/* Processar eventos da tela */
 	public void eventoDeSelecaoDoMes() {
 		setDividas();
 		existeCalculoMensal();
 	}
-	
+
 	public String telaDeFechamentoMensal() {
 		return "fechamentoMensal?faces-redirect=true";
 	}
-	
+
 	public String telaDeCadastro() {
 		dividaParaManuseio = new Divida();
 		dataDividaString = null;
 		return "telaCadastro?faces-redirect=true";
 	}
-	
+
 	public String editarDivida(Divida divida) {
 		this.dividaParaManuseio = divida;
 		this.dataDividaString = formatter.format(dividaParaManuseio.getDataDivida());
 		return "telaCadastro?faces-redirect=true";
 	}
-	
+
 	public void excluirDivida(Divida divida) {
 		dividaRepository.apagarEntidade(Divida.class, divida.getId());
 		setDividas();
 	}
 	/*--*/
-	
+
 	public Divida getDividaParaManuseio() {
 		if (Objects.isNull(dividaParaManuseio)) {
 			dividaParaManuseio = new Divida();
 		}
 		return dividaParaManuseio;
 	}
-	
+
 	public String getSomatorioTotalDeDividas() {
 		return "R$ " + new DecimalFormat("#,##0.00").format(somatorioTotalDeDividas);
 	}
 	/**/
 
-	/* Comportamento tela de cadastro*/
+	/* Comportamento tela de cadastro */
 	public String telaInicial() {
 		return "index?faces-redirect=true";
 	}
-	
+
 	public String salvarDivida() {
 		dividaParaManuseio.setDataDivida(toLocalDate(dataDividaString));
 		dividaRepository.salvarEntidade(dividaParaManuseio);
@@ -131,7 +133,7 @@ public class IndexBean implements Serializable {
 		return telaInicial();
 	}
 	/**/
-	
+
 	private LocalDate toLocalDate(final String data) {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.US);
 		try {
@@ -140,11 +142,11 @@ public class IndexBean implements Serializable {
 			throw e;
 		}
 	}
-	
+
 	/* Somatorio das dividas */
 	private void somatorioDeDividas() {
 		somatorioTotalDeDividas = 0.0;
-		for(Divida d : dividas) {
+		for (Divida d : dividas) {
 			somatorioTotalDeDividas += d.getValor();
 		}
 	}
