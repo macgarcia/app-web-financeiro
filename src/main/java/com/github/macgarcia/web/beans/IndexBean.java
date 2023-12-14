@@ -115,7 +115,7 @@ public class IndexBean implements Serializable {
 	}
 
 	public String getSomatorioTotalDeDividas() {
-		return "R$ " + new DecimalFormat("#,##0.00").format(somatorioTotalDeDividas);
+		return "Valor total: R$ " + new DecimalFormat("#,##0.00").format(somatorioTotalDeDividas);
 	}
 	/**/
 

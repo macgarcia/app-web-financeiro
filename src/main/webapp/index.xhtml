@@ -17,114 +17,100 @@
 		
 		<div id="menu" class="form-container">
 			<h:form>
-				<h:outputLabel value="Mês selecionado: " for="selectMes" />
-				<h:selectOneMenu id="selectMes" value="#{indexBean.mesSelecionado}">
-					<f:selectItems value="#{indexBean.meses}" var="mes" itemLabel="#{mes}" itemValue="#{mes}"/>
-					<f:ajax event="change" render="tabelaDividas valorTotalDivida" listener="#{indexBean.eventoDeSelecaoDoMes}" />
-				</h:selectOneMenu>
+				<div class="ui-fluid formgrid grid">
+					<div class="field col-12 md:col-4">
+						<p:outputLabel for="option" value="Mês selecionado" />
+						<p:selectOneMenu id="option" value="#{indexBean.mesSelecionado}">
+							<f:selectItems value="#{indexBean.meses}" var="mes" itemLabel="#{mes}" itemValue="#{mes}"/>
+							<f:ajax event="change"
+								render="tabelaDividas valorTotalDivida"
+								listener="#{indexBean.eventoDeSelecaoDoMes}" />
+						</p:selectOneMenu>
+					</div>
+				</div>
 			</h:form>
-			
+
 			<div id="totalDividas">
 				<h:form id="valorTotalDivida">
-					<h:panelGrid columns="2">
-						<h:outputText value="Valor total: " />
-						<h:outputText value="#{indexBean.somatorioTotalDeDividas}" />
-					</h:panelGrid>
+					<h:outputText value="#{indexBean.somatorioTotalDeDividas}" />
 				</h:form>
 			</div>
 			
 			<h:form>
-				<h:commandButton styleClass="h-commandButton" 
+				<p:commandButton styleClass="h-commandButton" 
 					value="Fechamento mensal" 
 					action="#{indexBean.telaDeFechamentoMensal}"
-					style="background-color: green;"/>
+					style="background-color: green; border: solid 1px green;"/>
 			</h:form>
 		</div>
 		
 		<br/>
 		<br/>
-		
-		<div class="table">
-			<h:dataTable id="tabelaDividas" styleClass="centralized-table" value="#{indexBean.dividas}" var="divida">
-				<h:column rendered="#{!indexBean.existeCalculo}">
+
+	    <div class="card" >
+	        <p:dataTable id="tabelaDividas" value="#{indexBean.dividas}" var="divida">
+				<p:column headerText="Nova divida">
 					<f:facet name="header">
 						<h:form>
-							<h:commandButton id="novaDivida" 
+							<p:commandButton id="novaDivida" style="background-color: green; border: 1px solid green;" 
 								value="Nova divida" 
 								title="Nova divida" 
-								image="https://ik.imagekit.io/macgarcia/app-web-contas/logo_novo_verde.png?updatedAt=1695695018493" 
 								action="#{indexBean.telaDeCadastro}"
 								immediate="true"
-								styleClass="h-commandButton icone" />
+								styleClass="h-commandButton" />
 						</h:form>
 					</f:facet>
 					<h:form>
-					    <h:commandButton id="editarDivida" 
+					    <p:commandButton id="editarDivida" 
 					    	value="Editar"
 					    	title="Editar divida"
-					    	image="https://ik.imagekit.io/macgarcia/app-web-contas/logo_editar_azul.png?updatedAt=1695695127464"
 					    	action="#{indexBean.editarDivida(divida)}"
 					    	immediate="true"
-					    	styleClass="h-commandButton icone" />
-								
-					    <h:commandButton id="excluirDivida" 
-					    	value="Excluir Item"
+					    	styleClass="h-commandButton" />
+					    	
+					    <p:commandButton id="excluirDivida" style="background-color: red; border: 1px solid red; margin-left:5px;"
+					    	value="Excluir"
 					    	title="Excluit divida"
-					    	image="https://ik.imagekit.io/macgarcia/app-web-contas/logo_excluir_vermelho.png?updatedAt=1695697451253" 
 					    	action="#{indexBean.excluirDivida(divida)}"
-					    	styleClass="h-commandButton icone"
+					    	styleClass="h-commandButton"
 					    	onclick="return confirm('Tem certeza de que deseja excluir este item?');"
 					    	immediate="true"
 					    	render="tabelaDividas" />
 					</h:form>
-				</h:column>
-				<h:column>
-					<f:facet name="header" >
-						<h:outputText value="Descrição"/>
-					</f:facet>
-					<h:outputText value="#{divida.descricao}"/>
-				</h:column>
-				<h:column>
-					<f:facet name="header" >
-						<h:outputText value="Valor R$"/>
-					</f:facet>
-					<h:outputText value="#{divida.valorFormatado}"/>
-				</h:column>
-				<h:column>
-					<f:facet name="header" >
-						<h:outputText value="Data"/>
-					</f:facet>
-					<h:outputText value="#{divida.dataFormatada}"/>
-				</h:column>
-				<h:column>
-					<f:facet name="header" >
-						<h:outputText value="Mês referencia"/>
-					</f:facet>
-					<h:outputText value="#{divida.mes}"/>
-				</h:column>
-				<h:column>
-					<f:facet name="header" >
-						<h:outputText value="Categoria"/>
-					</f:facet>
-					<h:outputText value="#{divida.categoria}"/>
-				</h:column>
-				<h:column>
-					<f:facet name="header" >
-						<h:outputText value="Ano"/>
-					</f:facet>
-					<h:outputText value="#{divida.ano}"/>
-				</h:column>
-				<h:column>
-				    <f:facet name="header">
-				        <h:outputText value="Fechamento mensal" />
-				    </f:facet>
-				    <h:graphicImage class="icone"
-				    	url="#{divida.calculoMensal != null ? 
-				    	'https://ik.imagekit.io/macgarcia/app-web-contas/logo_ok_verde.png?updatedAt=1695695894108' 
-				    	: 'https://ik.imagekit.io/macgarcia/app-web-contas/logo_nao_vermelho.png?updatedAt=1695697461792'}"/>
-				</h:column>
-			</h:dataTable>
-			<br/>
-		</div>
+	            </p:column>
+	        	
+	            <p:column headerText="Descrição">
+	                <h:outputText value="#{divida.descricao}"/>
+	            </p:column>
+	
+	            <p:column headerText="Valor R$">
+	                <h:outputText value="#{divida.valorFormatado}" />
+	            </p:column>
+	
+	            <p:column headerText="Data">
+	                <h:outputText value="#{divida.dataFormatada}" />
+	            </p:column>
+	
+	            <p:column headerText="Mês referencia">
+	                <h:outputText value="#{divida.mes}" />
+	            </p:column>
+	            
+	            <p:column headerText="Categoria">
+	                <h:outputText value="#{divida.categoria}" />
+	            </p:column>
+	            
+	            <p:column headerText="Ano">
+	                <h:outputText value="#{divida.ano}" />
+	            </p:column>
+	            
+	            <p:column headerText="Fechamento mensal">
+					<h:graphicImage class="icone" 
+						url="#{divida.calculoMensal != null ? 
+					    'https://ik.imagekit.io/macgarcia/app-web-contas/logo_ok_verde.png?updatedAt=1695695894108' 
+					    : 'https://ik.imagekit.io/macgarcia/app-web-contas/logo_nao_vermelho.png?updatedAt=1695697461792'}"/>
+	            </p:column>
+	        </p:dataTable>
+	    </div>
+
 	</h:body>
 </html>

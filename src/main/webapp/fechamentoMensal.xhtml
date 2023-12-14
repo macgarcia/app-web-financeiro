@@ -32,7 +32,7 @@
 				<h:outputLabel value="Valor renda mensal R$: " for="valorRenda" style="margin-right: 10px; margin-left: 10px;" />
 				<h:inputText id="valorRenda" value="#{fechamentoMensalBean.valorRendaMensal}" required="true" />
 				
-				<p:commandButton style="margin-right: 10px; margin-left: 10px;"
+				<h:commandButton style="margin-right: 10px; margin-left: 10px;"
 					value="Executar fechamento mensal" 
 					actionListener="#{fechamentoMensalBean.executarFechamentoMensal}"
 					render="tabelaCalculos"

@@ -8,7 +8,7 @@ body {
 }
 
 h1 {
-	background-color: brown;
+	background-color: maroon;
 	font-size: 50px;
 	border: 1px 1px 1px 1px;
 	margin: 0px;
@@ -35,9 +35,9 @@ h1 {
 .form-container {
     margin: 10px;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid ghostwhite;
     border-radius: 5px;
-    background-color: #f0f0f0;
+    background-color: ghostwhite;
 }
 
 .label {
@@ -76,7 +76,7 @@ h1 {
     margin: 0 auto; /* Centraliza a tabela horizontalmente */
     text-align: center; /* Centraliza o conteúdo dentro da tabela horizontalmente */
     width: 80%; /* Define a largura da tabela (altere o valor conforme necessário) */
-    border: 2px solid crimson; /* Adiciona uma borda sólida preta de 2px à tabela */
+    /*border: 2px solid crimson; Adiciona uma borda sólida preta de 2px à tabela */
 }
 
 .centralized-table thead tr:first-child {
@@ -103,8 +103,8 @@ h1 {
 
 .icone {
     /* Estilos da imagem */
-    width: 30px; /* Largura da imagem */
-    height: 30px; /* Altura da imagem */
+    width: 15px; /* Largura da imagem */
+    height: 15px; /* Altura da imagem */
 }
 
 
@@ -122,10 +122,11 @@ h1 {
 /* Bloco informativo de total de dividas */
 
 #totalDividas {
+	text-align: center;
     background-color: red;
     color: white;
     font-weight: bold;
     padding: 5px;
     border-radius: 5px;
-    width: 10.5%;
+    width: 12%;
 }
