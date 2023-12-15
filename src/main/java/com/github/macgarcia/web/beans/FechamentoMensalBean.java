@@ -9,6 +9,8 @@ import java.util.Objects;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -16,6 +18,7 @@ import com.github.macgarcia.web.enums.Mes;
 import com.github.macgarcia.web.enums.ProcessosArmazenados;
 import com.github.macgarcia.web.model.CalculoMensal;
 import com.github.macgarcia.web.repository.CalculoMensalRepository;
+import com.github.macgarcia.web.util.ComponenteDeTela;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -56,7 +59,7 @@ public class FechamentoMensalBean implements Serializable {
 
 	/* Gets para a tela */
 	public Mes[] getMeses() {
-		return Mes.values();
+		return ComponenteDeTela.meses();
 	}
 	/**/
 
@@ -73,7 +76,10 @@ public class FechamentoMensalBean implements Serializable {
 	}
 
 	public void executarFechamentoMensal() {
-		if (!Objects.isNull(valorRendaMensal)) {
+		if (Objects.isNull(valorRendaMensal)) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "Fechamento mensal", "Digite o valor"));
+		} else {
 			final Map<String, Object> parametros = new HashMap<String, Object>();
 			parametros.put("mes_selecionado_p", mesFechmaento.name());
 			parametros.put("valor_saldo_mensal_p", valorRendaMensal.doubleValue());

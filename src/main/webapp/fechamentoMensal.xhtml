@@ -20,36 +20,34 @@
 		
 		<div id="menu" class="form-container">
 			<h:form>
-				<h:commandButton styleClass="h-commandButton" 
+				<p:commandButton styleClass="h-commandButton" 
 					value="Financeiro" 
 					action="#{fechamentoMensalBean.telaInicial}"
-					style="background-color: green;"/>
+					style="background-color: green; border:1px solid green;"/>
 			</h:form>
 						
 			<h:form>
-				<h:outputLabel value="Mês a ser fechado: " for="mesFechamento" />
-				<h:selectOneMenu id="mesFechamento" value="#{fechamentoMensalBean.mesFechmaento}">
+				<p:outputLabel value="Mês a ser fechado: " for="mesFechamento" />
+				<p:selectOneMenu id="mesFechamento" value="#{fechamentoMensalBean.mesFechmaento}">
 					<f:selectItems value="#{fechamentoMensalBean.meses}" var="mes" itemLabel="#{mes}" itemValue="#{mes}"/>
-				</h:selectOneMenu>
+				</p:selectOneMenu>
 				
-				<h:outputLabel value="Valor renda mensal R$: " for="valorRenda" style="margin-right: 10px; margin-left: 10px;" />
-				<h:inputText id="valorRenda" value="#{fechamentoMensalBean.valorRendaMensal}" required="true" />
+				<p:outputLabel value="Valor renda mensal R$: " for="valorRenda" style="margin-right: 10px; margin-left: 10px;" />
+				<p:inputText id="valorRenda" value="#{fechamentoMensalBean.valorRendaMensal}" />
 				
-				<h:commandButton style="margin-right: 10px; margin-left: 10px;"
+				<p:commandButton style="margin-right: 10px; margin-left: 10px;" styleClass="h-commandButton" 
 					value="Executar fechamento mensal" 
 					actionListener="#{fechamentoMensalBean.executarFechamentoMensal}"
-					render="tabelaCalculos"
 					title="Executar fechamento mensal"
-					
 					onstart="PF('statusDialog').show();"
 					oncomplete="PF('statusDialog').hide();"
-					immediate="true"
+					update=":msg :tabelaCalculos valorRenda"
 					/>
 			</h:form>
 		</div>
 		
 		<p:dialog widgetVar="statusDialog" modal="true" draggable="false" resizable="false" showHeader="false" closable="false">
-		    <p:spacer width="10" />
+		    <p:spacer width="20" height="40" />
 		    <p:outputLabel value="Processando, por favor aguarde um instante..." />
 		</p:dialog>
 		
@@ -57,60 +55,44 @@
 		<br/>
 		
 		<div class="table">
-			<h:dataTable id="tabelaCalculos" styleClass="centralized-table" value="#{fechamentoMensalBean.calculos}" var="calculo">
-				<h:column>
-					<f:facet name="header">
-						<h:form>
-							<h:outputText value=""/>
-						</h:form>
-					</f:facet>
+			<p:dataTable id="tabelaCalculos" value="#{fechamentoMensalBean.calculos}" var="calculo">
+				<p:column headerText="">
 					<h:form>
-						<h:commandButton styleClass="h-commandButton icone" 
-							value="Desfazer fechamento" 
+						<p:commandButton styleClass="h-commandButton" 
+							value="Desfazer" 
 							action="#{fechamentoMensalBean.desfazerFechamento(calculo.id)}"
 							onclick="return confirm('Tem certeza de que deseja DESFAZER este item?');"
-							render="tabelaCalculos"
 							title="Desfazer fechamento mensal"
-							image="https://ik.imagekit.io/macgarcia/app-web-contas/logo_desfazer_verde.png?updatedAt=1695744828214"/>
+							update=":tabelaCalculos"/>
 					</h:form>
-				</h:column>
-				<h:column>
-					<f:facet name="header" >
-						<h:outputText value="Mês"/>
-					</f:facet>
+				</p:column>
+				<p:column headerText="Mes">
 					<h:outputText value="#{calculo.mes}"/>
-				</h:column>
-				<h:column>
-					<f:facet name="header" >
-						<h:outputText value="Valor mensal recebido R$"/>
-					</f:facet>
+				</p:column>
+				<p:column headerText="Valor renda mensal">
 					<h:outputText value="#{calculo.valorSaldoMensalFormatado}"/>
-				</h:column>
-				<h:column>
-					<f:facet name="header" >
-						<h:outputText value="Valor saldo R$"/>
-					</f:facet>
-					<h:outputText value="#{calculo.valorResultanteFormatado}"/>
-				</h:column>
-				<h:column>
-					<f:facet name="header" >
-						<h:outputText value="Valor total das dividas R$"/>
-					</f:facet>
+				</p:column>
+				<p:column headerText="Valor total de dividas">
 					<h:outputText value="#{calculo.valorTotalDividaFormatado}"/>
-				</h:column>
-				<h:column>
-					<f:facet name="header" >
-						<h:outputText value="Situacao"/>
-					</f:facet>
+				</p:column>
+				<p:column headerText="Saldo">
+					<h:outputText value="#{calculo.valorResultanteFormatado}"/>
+				</p:column>				
+				<p:column headerText="Situação">
 					<h:outputText value="#{calculo.situacao}"/>
-				</h:column>
-				<h:column>
-					<f:facet name="header" >
-						<h:outputText value="Ano"/>
-					</f:facet>
+				</p:column>
+				<p:column headerText="Ano">
 					<h:outputText value="#{calculo.ano}"/>
-				</h:column>
-			</h:dataTable>
+				</p:column>
+				<p:column headerText="Situação">
+					<h:graphicImage class="icone" title="Situação do mês baseado no saldo." url="#{calculo.valorResultante > 0 ?
+						'https://ik.imagekit.io/macgarcia/app-web-contas/logo_ok_verde.png?updatedAt=1695695894108'	
+						: 'https://ik.imagekit.io/macgarcia/app-web-contas/logo_nao_vermelho.png?updatedAt=1695697461792'}"/>
+				</p:column>
+			</p:dataTable>
 		</div>
+		
+		<p:growl id="msg" showDetail="true" sticky="true" />
+		
 	</h:body>
 </html>
