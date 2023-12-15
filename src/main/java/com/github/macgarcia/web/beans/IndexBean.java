@@ -10,6 +10,8 @@ import java.util.Objects;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -18,6 +20,7 @@ import com.github.macgarcia.web.enums.Mes;
 import com.github.macgarcia.web.model.Divida;
 import com.github.macgarcia.web.repository.CalculoMensalRepository;
 import com.github.macgarcia.web.repository.DividaRepository;
+import com.github.macgarcia.web.util.ComponenteDeTela;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -62,7 +65,7 @@ public class IndexBean implements Serializable {
 
 	/* Processamento inicial da tela */
 	public Mes[] getMeses() {
-		return Mes.values();
+		return ComponenteDeTela.meses();
 	}
 
 	public CategoriaDivida[] getCategorias() {
@@ -89,21 +92,26 @@ public class IndexBean implements Serializable {
 		return "fechamentoMensal?faces-redirect=true";
 	}
 
-	public String telaDeCadastro() {
+	public void novaDivida() {
 		dividaParaManuseio = new Divida();
 		dataDividaString = null;
-		return "telaCadastro?faces-redirect=true";
 	}
 
-	public String editarDivida(Divida divida) {
+	public void editarDivida(Divida divida) {
 		this.dividaParaManuseio = divida;
 		this.dataDividaString = formatter.format(dividaParaManuseio.getDataDivida());
-		return "telaCadastro?faces-redirect=true";
 	}
 
 	public void excluirDivida(Divida divida) {
-		dividaRepository.apagarEntidade(Divida.class, divida.getId());
+		boolean apagou = dividaRepository.apagarEntidade(Divida.class, divida.getId());
 		setDividas();
+		if (apagou) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Cadastro", "Divida foi excluida com sucesso!"));
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Cadastro", "Erro ao excluir a divida..."));
+		}
 	}
 	/*--*/
 
@@ -119,18 +127,20 @@ public class IndexBean implements Serializable {
 	}
 	/**/
 
-	/* Comportamento tela de cadastro */
-	public String telaInicial() {
-		return "index?faces-redirect=true";
-	}
-
-	public String salvarDivida() {
+	public void salvarDivida() {
 		dividaParaManuseio.setDataDivida(toLocalDate(dataDividaString));
-		dividaRepository.salvarEntidade(dividaParaManuseio);
+		System.out.println(dividaParaManuseio);
+		boolean salvou = dividaRepository.salvarEntidade(dividaParaManuseio);
 		setDividas();
+		if (salvou) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Cadastro", "Divida salva com sucesso!"));
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Cadastro", "Erro ao salvar divida..."));
+		}
 		dividaParaManuseio = null;
 		dataDividaString = null;
-		return telaInicial();
 	}
 	/**/
 
