@@ -31,8 +31,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @NamedQueries({
 		@NamedQuery(name = "CalculoMensal.todosOsCalculos", query = "select c from CalculoMensal c where c.ano = :ano"),
-		@NamedQuery(name = "CalculoMensal.existeFechamentoMensal",
-				query = "select c from CalculoMensal c where c.situacao = :situacao and c.mes = :mes and c.ano = :ano")
+		@NamedQuery(name = "CalculoMensal.existeFechamentoMensal", query = "select c from CalculoMensal c where c.situacao = :situacao and c.mes = :mes and c.ano = :ano"),
+		@NamedQuery(name = "CalculoMensal.exiteCalculoMesal", query = "select count(c) from CalculoMensal c where c.mes = :mes and c.ano = :ano")
 })
 public class CalculoMensal implements Serializable, EntidadeBase {
 
@@ -65,6 +65,17 @@ public class CalculoMensal implements Serializable, EntidadeBase {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "calculoMensal", cascade = { CascadeType.PERSIST, CascadeType.MERGE,
 			CascadeType.REMOVE })
 	private List<Divida> dividas;
+	
+	public CalculoMensal(Mes mes, Double valorRendaMensal, Double valorTotalDeDividas, 
+			Double valorResultante, Situacao situacao, Integer ano, List<Divida> dividas) {
+		this.mes = mes;
+		this.valorSaldoMensal = valorRendaMensal;
+		this.valorTotalDividas = valorTotalDeDividas;
+		this.valorResultante = valorResultante;
+		this.situacao = situacao;
+		this.ano = ano;
+		this.dividas = dividas;
+	}
 	
 	public String getValorSaldoMensalFormatado() {
 		return "R$ " + new DecimalFormat("#,##0.00").format(valorSaldoMensal);

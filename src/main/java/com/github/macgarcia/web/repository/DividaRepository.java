@@ -12,20 +12,18 @@ import com.github.macgarcia.web.model.Divida;
 public class DividaRepository extends JPARepository<Divida> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	private final int ANO_CORRENTE = LocalDate.now().getYear();
 
 	public List<Divida> todasAsDividasDoMes(Mes mes) {
 		TypedQuery<Divida> query = getEntityManager().createNamedQuery("Divida.todasAsDividasDoMesCorrente", Divida.class);
-		query.setParameter("ano", LocalDate.now().getYear())
+		query.setParameter("ano", ANO_CORRENTE)
 				.setParameter("mes", mes);
 		return query.getResultList();
 	}
 	
-//	@Transacional
-//	public List<Divida> getAll(int pagina) {
-//		TypedQuery<Divida> query = getEntityManager().createNamedQuery("Divida.todasAsDividas", Divida.class);
-//		query.setFirstResult((pagina - 1) * RegraRepository.TOTAL_DE_REGISTROS);
-//		query.setMaxResults(RegraRepository.TOTAL_DE_REGISTROS);
-//		return query.getResultList();
-//	}
-
+	public List<Double> valoresDeDividasDeUmMes(Mes mes) {
+		TypedQuery<Double> query = getEntityManager().createNamedQuery("Divida.todosValoresDasDividas", Double.class);
+		query.setParameter("mes", mes).setParameter("ano", ANO_CORRENTE);
+		return query.getResultList();
+	}
 }

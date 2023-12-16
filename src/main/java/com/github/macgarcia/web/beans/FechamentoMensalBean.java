@@ -17,6 +17,7 @@ import javax.inject.Named;
 import com.github.macgarcia.web.enums.Mes;
 import com.github.macgarcia.web.enums.ProcessosArmazenados;
 import com.github.macgarcia.web.model.CalculoMensal;
+import com.github.macgarcia.web.processos.ProcessarFechamentoMensal;
 import com.github.macgarcia.web.repository.CalculoMensalRepository;
 import com.github.macgarcia.web.util.ComponenteDeTela;
 
@@ -28,20 +29,25 @@ import lombok.Setter;
 public class FechamentoMensalBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Inject
 	private IndexBean indexBean;
+
+	@Inject
+	private ProcessarFechamentoMensal fechamentoMensal;
 
 	@Inject
 	private CalculoMensalRepository calculoMensalRepository;
 
 	@Getter
 	private List<CalculoMensal> calculos;
-	
-	@Getter @Setter
+
+	@Getter
+	@Setter
 	private Mes mesFechmaento = Mes.getMesComDigito(LocalDate.now().getMonthValue() - 1);
-	
-	@Getter @Setter
+
+	@Getter
+	@Setter
 	private Double valorRendaMensal;
 
 	@PostConstruct
@@ -67,7 +73,8 @@ public class FechamentoMensalBean implements Serializable {
 	public void desfazerFechamento(Integer idCalculo) {
 		final Map<String, Object> parametros = new HashMap<String, Object>();
 		parametros.put("id_calculo_mensal_p", idCalculo.intValue());
-		boolean processou = calculoMensalRepository.executeProcedure(ProcessosArmazenados.DESFAZER_FECHAMENTO_MES, parametros);
+		boolean processou = calculoMensalRepository.executeProcedure(ProcessosArmazenados.DESFAZER_FECHAMENTO_MES,
+				parametros);
 		if (processou) {
 			setCalculos();
 			indexBean.setDividas();
@@ -80,16 +87,18 @@ public class FechamentoMensalBean implements Serializable {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_WARN, "Fechamento mensal", "Digite o valor"));
 		} else {
-			final Map<String, Object> parametros = new HashMap<String, Object>();
-			parametros.put("mes_selecionado_p", mesFechmaento.name());
-			parametros.put("valor_saldo_mensal_p", valorRendaMensal.doubleValue());
-			boolean processou = calculoMensalRepository.executeProcedure(ProcessosArmazenados.PROCESSAR_FECHAMENTO_MES, parametros);
-			if (processou) {
-				setCalculos();
-				indexBean.setDividas();
-				indexBean.existeCalculoMensal();
+			try {
+				fechamentoMensal.processarFechamentoMensal(mesFechmaento, valorRendaMensal);
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+						"Fechamento mensal", "Fechamento executado com sucesso."));
+			} catch (Exception e) {
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage(FacesMessage.SEVERITY_WARN, "Fechamento mensal", e.getMessage()));
 			}
 			this.valorRendaMensal = null;
+			setCalculos();
+			indexBean.setDividas();
+			indexBean.existeCalculoMensal();
 		}
 	}
 	/**/

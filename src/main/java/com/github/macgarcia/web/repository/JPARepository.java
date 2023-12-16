@@ -34,6 +34,16 @@ public class JPARepository<T extends EntidadeBase> {
 			return false;
 		}
 	}
+	
+	@Transacional
+	public T salvarEPegarEntidade(T t) {
+		if (t.getId() != null) {
+			entityManager.persist(t);
+			return t;
+		} else {
+			return entityManager.merge(t);
+		}
+	}
 
 	@Transacional
 	public boolean apagarEntidade(final Class<T> classe, final Integer id) {
