@@ -33,6 +33,7 @@ public class IndexBean implements Serializable {
 	private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 	@Inject
+	@Getter
 	private DividaRepository dividaRepository;
 
 	@Inject

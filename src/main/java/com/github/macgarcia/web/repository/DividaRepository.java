@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import com.github.macgarcia.web.enums.Mes;
+import com.github.macgarcia.web.interceptador.Transacional;
 import com.github.macgarcia.web.model.Divida;
 
 public class DividaRepository extends JPARepository<Divida> implements Serializable {
@@ -25,5 +27,18 @@ public class DividaRepository extends JPARepository<Divida> implements Serializa
 		TypedQuery<Double> query = getEntityManager().createNamedQuery("Divida.todosValoresDasDividas", Double.class);
 		query.setParameter("mes", mes).setParameter("ano", ANO_CORRENTE);
 		return query.getResultList();
+	}
+	
+	public List<Integer> getListIdsDasDividasDeUmCalculoMensal(Integer calculoMensalId) {
+		TypedQuery<Integer> query = getEntityManager().createNamedQuery("Divida.todasAsDividasDeUmCalculoMensal", Integer.class);
+		query.setParameter("calculoMensalId", calculoMensalId);
+		return query.getResultList();
+	}
+	
+	@Transacional
+	public void updateDasDividasDoFechamentoDesfeito(List<Integer> ids) {
+		Query query = getEntityManager().createNamedQuery("Divida.atualizarDividas");
+		query.setParameter("ids", ids);
+		query.executeUpdate();
 	}
 }

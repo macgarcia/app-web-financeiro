@@ -28,7 +28,7 @@
 						
 			<h:form>
 				<p:outputLabel value="Mês a ser fechado: " for="mesFechamento" />
-				<p:selectOneMenu id="mesFechamento" value="#{fechamentoMensalBean.mesFechmaento}">
+				<p:selectOneMenu id="mesFechamento" value="#{fechamentoMensalBean.mesFechamento}">
 					<f:selectItems value="#{fechamentoMensalBean.meses}" var="mes" itemLabel="#{mes}" itemValue="#{mes}"/>
 				</p:selectOneMenu>
 				
@@ -63,7 +63,7 @@
 							action="#{fechamentoMensalBean.desfazerFechamento(calculo.id)}"
 							onclick="return confirm('Tem certeza de que deseja DESFAZER este item?');"
 							title="Desfazer fechamento mensal"
-							update=":tabelaCalculos"/>
+							update=":tabelaCalculos :msg"/>
 					</h:form>
 				</p:column>
 				<p:column headerText="Mes">
