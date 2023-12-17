@@ -11,11 +11,18 @@
 		<class>com.github.macgarcia.web.model.CalculoMensal</class>
 
 		<properties>
+		
+		<!-- Utilizado para desenvolvimento -->
 			<property name="javax.persistence.jdbc.url"
 				value="jdbc:mysql://localhost:3306/anotacoes" />
 				
+			<!-- Utilizado para testes locais -->	
 <!-- 			<property name="javax.persistence.jdbc.url"
 				value="jdbc:mysql://172.17.0.2:3306/anotacoes_prd" /> -->
+				
+			<!-- Utilizado para o docker compose -->
+<!-- 			<property name="javax.persistence.jdbc.url"
+				value="jdbc:mysql://mysql_br:3306/anotacoes_br" /> -->
 				
 			<property name="javax.persistence.jdbc.user" value="root" />
 			<property name="javax.persistence.jdbc.password"
