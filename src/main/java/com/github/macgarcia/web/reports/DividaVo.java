@@ -21,7 +21,7 @@ public class DividaVo implements Serializable {
 	
 	public DividaVo(Divida divida) {
 		this.descricao = divida.getDescricao();
-		this.valor = divida.getValor().toString();
+		this.valor = divida.getValorFormatado();
 		this.categoria = divida.getCategoria().name();
 		this.dataDivida = DateTimeFormatter.ofPattern("dd/MM/yyyy").format(divida.getDataDivida());
 	}
