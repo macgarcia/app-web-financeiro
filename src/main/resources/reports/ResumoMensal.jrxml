@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ResumoMensal" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6a92d819-ea23-443c-9995-41db303a3301">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="MES_SELECIONADO" class="java.lang.String"/>
+	<parameter name="VALOR_RENDA_MENSAL" class="java.lang.String"/>
+	<parameter name="VALOR_TOTAL_DIVIDAS" class="java.lang.String"/>
+	<parameter name="SALDO" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="descricao" class="java.lang.String"/>
+	<field name="valor" class="java.lang.String"/>
+	<field name="categoria" class="java.lang.String"/>
+	<field name="dataDivida" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="78" width="550" height="1" uuid="a5460bea-d8ef-4bb2-949f-9f716df3f5ed"/>
+			</line>
+			<rectangle>
+				<reportElement x="0" y="10" width="550" height="60" forecolor="#115BA6" backcolor="#115BA6" uuid="0ac975c7-a923-4a64-8d0b-b132ef8fd991"/>
+			</rectangle>
+			<line>
+				<reportElement x="0" y="1" width="550" height="1" uuid="a410ff76-0cf1-430b-91d1-5e75d9b00676"/>
+			</line>
+			<textField>
+				<reportElement x="10" y="10" width="450" height="60" forecolor="#FFFFFF" uuid="7b5aac0d-342a-44e6-afb5-24b65cbfdbbb"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="42" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Fechamento mensal"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement x="0" y="0" width="139" height="24" uuid="d25a2d15-95b0-4a52-b8a9-10c5bd2d9eac">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f45682de-028f-4557-ae57-c74079c2edb5"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descrição]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="139" y="0" width="137" height="24" uuid="e9df39c9-b767-4aa9-b7ea-dc782cbaf42f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4411002e-3c4a-4901-af11-861a48dba307"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="276" y="0" width="137" height="24" uuid="913b6605-7377-42e0-8a85-dfa4c196574a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="35ada5d8-ad40-4600-a175-16c5754168ea"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Categoria]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="413" y="0" width="137" height="24" uuid="c117a134-31aa-4feb-9dae-3d10419308e3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="365e17ee-bdb5-472a-bab9-a5272647f659"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<rectangle>
+				<reportElement x="0" y="0" width="550" height="25" forecolor="#E1EFFC" backcolor="#E1EFFC" uuid="5e6920af-735d-43eb-a264-21bb8652b3d2">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<printWhenExpression><![CDATA[$V{REPORT_COUNT} % 2 == 1]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<textField>
+				<reportElement x="1" y="0" width="139" height="24" uuid="cba4c20c-da6a-4241-807a-a4fb8935631f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f45682de-028f-4557-ae57-c74079c2edb5"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="140" y="0" width="137" height="24" uuid="bb5522b1-32c0-47b0-a77c-4d8ef6c1f2ab">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4411002e-3c4a-4901-af11-861a48dba307"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="277" y="0" width="137" height="24" uuid="4bd48290-0bfb-4d62-8cf8-6fd1e8d09694">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="35ada5d8-ad40-4600-a175-16c5754168ea"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{categoria}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="414" y="0" width="137" height="24" uuid="ada938c1-3d9c-43ea-b3af-b5be4910d431">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="365e17ee-bdb5-472a-bab9-a5272647f659"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dataDivida}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="50">
+			<textField>
+				<reportElement x="0" y="14" width="30" height="16" uuid="9761cbeb-eb45-4aac-81e8-61a8cc8ac162"/>
+				<textFieldExpression><![CDATA["Mês: "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="34" width="100" height="16" uuid="b2142cc0-0de1-4e26-b337-02793e98dea2">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA["Valor renda mensal:"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="14" width="100" height="16" uuid="81a3043e-000b-48f4-a6b1-26cd74f41a68"/>
+				<textFieldExpression><![CDATA[$P{MES_SELECIONADO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="34" width="100" height="16" uuid="96df2643-d5cc-4811-a97c-9f2d2a2a00a5">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{VALOR_RENDA_MENSAL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="220" y="14" width="110" height="16" uuid="29ce6b2b-8269-48d7-becc-a50373069cf1">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA["Valor total de dividas:"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="220" y="34" width="100" height="16" uuid="014504dc-46e0-4dca-bc43-8aca73d166c5">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA["Saldo:"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="14" width="100" height="16" uuid="161db2ef-1dd2-4303-81b8-43d2292ee025">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{VALOR_TOTAL_DIVIDAS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="34" width="100" height="16" uuid="683d7116-5a83-476d-8dc1-da60b7e40d03">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{SALDO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+</jasperReport>

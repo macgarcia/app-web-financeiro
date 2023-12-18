@@ -89,6 +89,15 @@
 						'https://ik.imagekit.io/macgarcia/app-web-contas/logo_ok_verde.png?updatedAt=1695695894108'	
 						: 'https://ik.imagekit.io/macgarcia/app-web-contas/logo_nao_vermelho.png?updatedAt=1695697461792'}"/>
 				</p:column>
+				<p:column headerText="Relatótio">
+					<h:form>
+						<p:commandButton styleClass="h-commandButton"
+							value="Gerar relatório"
+							action="#{fechamentoMensalBean.gerarRelatorio(calculo.id)}" 
+							update=":msg"
+							ajax="false"/>
+					</h:form>
+				</p:column>
 			</p:dataTable>
 		</div>
 		

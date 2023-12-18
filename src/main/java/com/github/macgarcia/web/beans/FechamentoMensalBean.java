@@ -1,5 +1,6 @@
 package com.github.macgarcia.web.beans;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -16,11 +17,13 @@ import com.github.macgarcia.web.enums.Mes;
 import com.github.macgarcia.web.model.CalculoMensal;
 import com.github.macgarcia.web.processos.DesfazerFechamentoMensal;
 import com.github.macgarcia.web.processos.ProcessarFechamentoMensal;
+import com.github.macgarcia.web.reports.GerarRelatorio;
 import com.github.macgarcia.web.repository.CalculoMensalRepository;
 import com.github.macgarcia.web.util.ComponenteDeTela;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.sf.jasperreports.engine.JRException;
 
 @Named(value = "fechamentoMensalBean")
 @SessionScoped
@@ -39,6 +42,9 @@ public class FechamentoMensalBean implements Serializable {
 
 	@Inject
 	private CalculoMensalRepository calculoMensalRepository;
+
+	@Inject
+	private GerarRelatorio gerarRelatorio;
 
 	@Getter
 	private List<CalculoMensal> calculos;
@@ -94,7 +100,7 @@ public class FechamentoMensalBean implements Serializable {
 			try {
 				fechamentoMensal.processarFechamentoMensal(mesFechamento, valorRendaMensal,
 						this.calculoMensalRepository, indexBean.getDividaRepository());
-				
+
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
 						"Fechamento mensal", "Fechamento executado com sucesso."));
 			} catch (Exception e) {
@@ -107,6 +113,14 @@ public class FechamentoMensalBean implements Serializable {
 			indexBean.existeCalculoMensal();
 		}
 	}
-	/**/
 
+	public void gerarRelatorio(final Integer calculoMensalId) {
+		try {
+			this.gerarRelatorio.criarRelatorioFechamentoMensalSelecionado(calculoMensalId, calculoMensalRepository);
+		} catch (JRException | IOException e) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Fechamento mensal", "Erro ao gerar o relatório..."));
+		}
+	}
+	/**/
 }

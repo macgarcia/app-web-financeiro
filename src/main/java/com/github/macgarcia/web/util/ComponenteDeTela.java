@@ -9,6 +9,4 @@ public final class ComponenteDeTela {
 	public static Mes[] meses() {
 		return Mes.values();
 	}
-	
-
 }
